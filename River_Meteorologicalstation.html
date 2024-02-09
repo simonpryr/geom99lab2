@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Meteorologial Station and River Network of Nepal</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+  <script>
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+
+    "esri/layers/FeatureLayer"
+
+  ], function(esriConfig, Map, MapView, FeatureLayer) {
+
+  // esriConfig.apiKey = "AAPKde86041e7c2d49a99f34f243a02beceb0CcieFnkjjfNwvWKjxvCR31IhYOG5p_ubZgltRLRqIEWWdy7M-7Q1JR5R9cvBzhb";
+
+  const map = new Map({
+    basemap: "hybrid"
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [84,28],
+    zoom: 7
+  });
+
+//Meteorological Station feature layer (points)
+  const meteorologyLayer = new FeatureLayer({
+    url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/ArcGIS/rest/services/Meteorological_station_of_Nepal/FeatureServer/0"
+  });
+
+  map.add(meteorologyLayer);
+
+//River Network feature layer (lines)
+  const riverLayer = new FeatureLayer({
+    url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/ArcGIS/rest/services/River_Network_of_Nepal/FeatureServer/0"
+  });
+
+  map.add(riverLayer, 0);
+
+  });
+</script>
+
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
